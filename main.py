@@ -1,8 +1,8 @@
 from random import randint as r
 import matplotlib.pyplot as plt
 from matplotlib import rc
-import numpy as np
-from math import exp
+# import numpy as np
+# from math import exp
 import pyperclip as cp
 
 num = 500000
@@ -92,7 +92,7 @@ cp.copy("\n".join(map(str, out)))
 print("Copy!")
 # cp.copy("\n".join(map(str, out_ratio)))
 # print("Copy!")
-nut = np.array(out)
+# nut = np.array(out)
 
 rc('font', family="NanumGothic")
 
@@ -110,10 +110,11 @@ plt.ylabel("비율 (%)")
 plt.title("실험 결과")
 plt.xticks(xti)
 
-fit = np.polyfit(xti, np.log(nut), 1)
-nfit = np.zeros(setting)
-for i in range(setting):
-    nfit[i] = exp(fit[1]) * exp(fit[0] * xti[i])
+# fit = np.polyfit(xti, np.log(nut), 1)
+# nfit = np.zeros(setting)
+# for i in range(setting):
+#     nfit[i] = exp(fit[1]) * exp(fit[0] * xti[i])
+
 # for i in range(len(out) - 1):
 #     print(out[i+1]/out[i], sep=" ")
 
@@ -128,7 +129,7 @@ for i in range(setting):
 fig3 = plt.figure(3, figsize=(9.60, 7.20))
 plt.plot(xti, out)
 plt.xlabel("TCA cycle 횟수")
-plt.ylabel("나간 13C의 상대량")
+plt.ylabel("나간 12C의 상대량")
 plt.title("실험 결과")
 plt.xticks(xti)
 
