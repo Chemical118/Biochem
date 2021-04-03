@@ -1,19 +1,19 @@
 from random import randint as r
 import matplotlib.pyplot as plt
 from matplotlib import rc
+
 # import numpy as np
 # from math import exp
-import pyperclip as cp
+# import pyperclip as cp
 
-num = 500000
+num = input("Number of Sample : ")
+if num.isdigit() and int(num) > 0:
+    num = int(num)
+else:
+    num = 500000
 setting = 20
 xti = [i + 1 for i in range(setting)]
-
-c_0 = []
-c_1 = []
-c_2 = []
-c_3 = []
-c_4 = []
+cli = [[] for _ in range(4)]
 out = [0 for _ in range(setting)]
 c_num = dict([(0, 0), (1, 2), (2, 1), (3, 2), (4, 3), (5, 3), (6, 4)])
 
@@ -23,16 +23,12 @@ def check():
     for q in Biochem.li:
         t[q.type] += 1
     print(t)
-    c_0.append(t[0] / num * 100)
-    c_1.append(t[2] / num * 100)
-    c_2.append((t[1] + t[3]) / num * 100)
-    c_3.append((t[4] + t[5]) / num * 100)
-    c_4.append(t[6] / num * 100)
+    cli[0].append(t[2] / num * 100)
+    cli[1].append((t[1] + t[3]) / num * 100)
+    cli[2].append((t[4] + t[5]) / num * 100)
+    cli[3].append(t[6] / num * 100)
     Biochem.moved += 1
-    if t[6] == num or Biochem.moved >= setting:
-        return True
-    else:
-        return False
+    return Biochem.moved == setting
 
 
 class Biochem:
@@ -82,14 +78,12 @@ while True:
         i.move()
     if check():
         break
-out = list(map(lambda t: t/max(out)*3, out))
-out_ratio = []
-
+out = list(map(lambda t: t / max(out) * 3, out))
+# out_ratio = []
 # for i in range(len(out) - 1):
 #     out_ratio.append(out[i]/out[i+1])
-
-cp.copy("\n".join(map(str, out)))
-print("Copy!")
+# cp.copy("\n".join(map(str, out)))
+# print("Copy!")
 # cp.copy("\n".join(map(str, out_ratio)))
 # print("Copy!")
 # nut = np.array(out)
@@ -98,11 +92,8 @@ rc('font', family="NanumGothic")
 
 fig = plt.figure(1, figsize=(9.60, 7.20))
 ax = fig.add_subplot()
-
-ax.plot(xti, c_1, label='1개 13C')
-ax.plot(xti, c_2, label='2개 13C')
-ax.plot(xti, c_3, label='3개 13C')
-ax.plot(xti, c_4, label='4개 13C')
+for i in range(4):
+    ax.plot(xti, cli[i], label=str(i + 1) + '개 13C')
 
 ax.legend()
 plt.xlabel("TCA cycle 횟수")
