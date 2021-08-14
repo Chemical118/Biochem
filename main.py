@@ -41,6 +41,7 @@ class Biochem:
 
     def move(self):
         if self.type == 6:
+            out[Biochem.moved] += 2
             return
         t = r(1, 4)
         be = self.type
@@ -68,7 +69,7 @@ class Biochem:
         elif self.type == 4:
             if t <= 3:
                 self.type = 6
-        out[Biochem.moved] += (c_num[self.type] - c_num[be])
+        out[Biochem.moved] += (2 - c_num[self.type] + c_num[be])
 
 
 for _ in range(num):
@@ -120,7 +121,7 @@ plt.xticks(xti)
 fig3 = plt.figure(3, figsize=(9.60, 7.20))
 plt.plot(xti, out)
 plt.xlabel("TCA cycle 횟수")
-plt.ylabel("나간 12C의 상대량")
+plt.ylabel("나간 13C의 상대량")
 plt.title("실험 결과")
 plt.xticks(xti)
 
